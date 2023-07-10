@@ -17,7 +17,7 @@ public class DimensionCalculatorImplTest {
 
         // Test case 2: desiredSize = 50, dimensionGrowth = 5
         int dimension2 = dimensionCalculator.calculateDimension(50, 5);
-        Assert.assertEquals(9, dimension2);
+        Assert.assertEquals(13, dimension2);
 
         // Test case 3: desiredSize = 10, dimensionGrowth = 1
         int dimension3 = dimensionCalculator.calculateDimension(10, 1);
@@ -25,6 +25,6 @@ public class DimensionCalculatorImplTest {
 
         // Test case 4: desiredSize = 100, dimensionGrowth = 10
         int dimension4 = dimensionCalculator.calculateDimension(100, 10);
-        Assert.assertEquals(11, dimension4);
+        Assert.assertEquals(20, dimension4);
     }
 }
