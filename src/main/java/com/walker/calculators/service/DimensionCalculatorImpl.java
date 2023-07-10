@@ -3,15 +3,19 @@ package com.walker.calculators.service;
 public class DimensionCalculatorImpl implements DimensionCalculator {
     @Override
     public int calculateDimension(int desiredSize, int dimensionGrowth) {
-        int currentDimension = 1;
-        int currentSize = 1;
+        int dimension = 1;
 
-        while (currentSize < desiredSize) {
-            currentDimension += dimensionGrowth;
-            currentSize = currentDimension * currentDimension;
+        System.out.println("Initial dimension: " + dimension);
+
+        while (dimension * dimension <= desiredSize + dimensionGrowth) {
+            dimension++;
+            System.out.println("Current dimension: " + dimension);
+            System.out.println("Current total elements: " + (dimension * dimension));
+            System.out.println("Desired size + dimension growth: " + (desiredSize + dimensionGrowth));
         }
 
-        return currentDimension;
+        System.out.println("Final dimension: " + dimension);
+        return dimension;
     }
-}
 
+}
