@@ -38,16 +38,21 @@ public class CoordinateCalculatorImplTest {
         List<Coordinate> adjacentCoordinateList = new ArrayList<>();
         adjacentCoordinates.forEach(adjacentCoordinateList::add);
 
-        // Expected adjacent coordinates: (1, 2), (3, 2), (2, 1), (2, 3)
+        // Expected adjacent coordinates: (1, 2), (3, 2), (2, 1), (2, 3), (1, 1), (3, 1), (1, 3), (3, 3)
         List<Coordinate> expectedAdjacentCoordinates = Arrays.asList(
                 new Coordinate(1, 2),
                 new Coordinate(3, 2),
                 new Coordinate(2, 1),
-                new Coordinate(2, 3)
+                new Coordinate(2, 3),
+                new Coordinate(1, 1),
+                new Coordinate(3, 1),
+                new Coordinate(1, 3),
+                new Coordinate(3, 3)
         );
 
         Assert.assertEquals(expectedAdjacentCoordinates, adjacentCoordinateList);
     }
+
 
     @Test
     public void testGetAdjacentCoordinates_MultipleCoordinates() {
@@ -62,14 +67,12 @@ public class CoordinateCalculatorImplTest {
 
         // Get adjacent coordinates for the multiple input coordinates
         Iterable<Coordinate> adjacentCoordinates = coordinateCalculator.getAdjacentCoordinates(coordinates, dimension);
-
         // Convert the iterables to sets for unordered comparison
         Set<Coordinate> expectedAdjacentCoordinates = new HashSet<>();
         Set<Coordinate> actualAdjacentCoordinates = new HashSet<>();
 
         coordinates.forEach(coordinate -> expectedAdjacentCoordinates.addAll((Collection<? extends Coordinate>) coordinateCalculator.getAdjacentCoordinates(coordinate, dimension)));
         adjacentCoordinates.forEach(actualAdjacentCoordinates::add);
-
         Assert.assertEquals(expectedAdjacentCoordinates, actualAdjacentCoordinates);
     }
 

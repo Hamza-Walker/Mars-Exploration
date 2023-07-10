@@ -18,13 +18,14 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator{
     public Iterable<Coordinate> getAdjacentCoordinates(Coordinate coordinate, int dimension) {
         List<Coordinate> adjacentCoordinates = new ArrayList<>();
 
-        int x = coordinate.x(); // getX(), getY()
+        int x = coordinate.x();
         int y = coordinate.y();
 
-        // check left neighbor
-        if (x > 0){
+        // Check left neighbor
+        if (x > 0) {
             adjacentCoordinates.add(new Coordinate(x - 1, y));
         }
+
         // Check right neighbor
         if (x < dimension - 1) {
             adjacentCoordinates.add(new Coordinate(x + 1, y));
@@ -40,8 +41,29 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator{
             adjacentCoordinates.add(new Coordinate(x, y + 1));
         }
 
+        // Check top-left neighbor
+        if (x > 0 && y > 0) {
+            adjacentCoordinates.add(new Coordinate(x - 1, y - 1));
+        }
+
+        // Check top-right neighbor
+        if (x < dimension - 1 && y > 0) {
+            adjacentCoordinates.add(new Coordinate(x + 1, y - 1));
+        }
+
+        // Check bottom-left neighbor
+        if (x > 0 && y < dimension - 1) {
+            adjacentCoordinates.add(new Coordinate(x - 1, y + 1));
+        }
+
+        // Check bottom-right neighbor
+        if (x < dimension - 1 && y < dimension - 1) {
+            adjacentCoordinates.add(new Coordinate(x + 1, y + 1));
+        }
+
         return adjacentCoordinates;
     }
+
 
 
     @Override
@@ -53,7 +75,7 @@ public class CoordinateCalculatorImpl implements CoordinateCalculator{
                 adjacentCoordinates.add(adjacentCoordinate);
             }
         }
-
+        //System.out.println(adjacentCoordinates);
         return adjacentCoordinates;
     }
 
