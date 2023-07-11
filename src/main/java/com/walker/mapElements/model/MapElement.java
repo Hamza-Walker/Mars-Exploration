@@ -1,14 +1,16 @@
 package com.walker.mapElements.model;
 
 
+import com.walker.configuration.model.PreferredLocationSymbol;
+
 public class MapElement extends Map {
     private String[][] representation;
     private String name;
     private int dimension;
-    private String preferredLocationSymbol;
+    private PreferredLocationSymbol preferredLocationSymbol;
     private String symbol;
 
-    public MapElement(String[][] representation, String symbol, String name, int dimension, String preferredLocationSymbol) {
+    public MapElement(String[][] representation, String symbol, String name, int dimension, PreferredLocationSymbol preferredLocationSymbol) {
         super(representation);
         this.representation = representation;
         this.symbol = symbol;
@@ -33,7 +35,7 @@ public class MapElement extends Map {
         return dimension;
     }
 
-    public String getPreferredLocationSymbol() {
+    public PreferredLocationSymbol getPreferredLocationSymbol() {
         return preferredLocationSymbol;
     }
 

@@ -1,5 +1,6 @@
 package mapElements;
 
+import com.walker.configuration.model.PreferredLocationSymbol;
 import com.walker.mapElements.model.MapElement;
 import com.walker.mapElements.service.builder.MapElementBuilder;
 import com.walker.mapElements.service.builder.MapElementBuilderImpl;
@@ -15,7 +16,7 @@ public class MapElementBuilderImplTest {
         String symbol = "#";
         String name = "mountain";
         int dimensionGrowth = 3;
-        String preferredLocationSymbol = null;
+        PreferredLocationSymbol preferredLocationSymbol = null;
 
         MapElementBuilder builder = new MapElementBuilderImpl();
 
