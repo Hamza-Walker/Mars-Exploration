@@ -2,7 +2,6 @@ package com.walker.mapElements.model;
 
 public class Map {
     private String[][] representation;
-
     private boolean successfullyGenerated;
 
     public Map(String[][] representation) {
@@ -15,6 +14,14 @@ public class Map {
 
     public void setSuccessfullyGenerated(boolean successfullyGenerated) {
         this.successfullyGenerated = successfullyGenerated;
+    }
+
+    public int getHeight() {
+        return representation.length;
+    }
+
+    public int getWidth() {
+        return representation[0].length;
     }
 
     private static String createStringRepresentation(String[][] arr) {
@@ -30,10 +37,15 @@ public class Map {
         return stringBuilder.toString();
     }
 
-
     @Override
     public String toString() {
-        return createStringRepresentation(representation);
+        StringBuilder sb = new StringBuilder();
+        for (String[] row : representation) {
+            for (String element : row) {
+                sb.append(element).append(" ");
+            }
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 }
-

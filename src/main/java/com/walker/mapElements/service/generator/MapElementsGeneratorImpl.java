@@ -4,6 +4,7 @@ import com.walker.configuration.model.MapConfiguration;
 import com.walker.configuration.model.ElementConfig;
 import com.walker.mapElements.model.MapElement;
 import com.walker.mapElements.service.builder.MapElementBuilder;
+import com.walker.mapElements.service.generator.MapElementsGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

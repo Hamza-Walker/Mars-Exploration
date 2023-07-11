@@ -3,6 +3,8 @@ package com.walker.mapElements.service.placer;
 import com.walker.calculators.model.Coordinate;
 import com.walker.mapElements.model.MapElement;
 
+import java.util.Arrays;
+
 public class MapElementPlacerImpl implements MapElementPlacer{
     @Override
     public boolean canPlaceElement(MapElement element, String[][] map, Coordinate coordinate) {
@@ -28,13 +30,13 @@ public class MapElementPlacerImpl implements MapElementPlacer{
         int x = coordinate.x();
         int y = coordinate.y();
         String[][] elementShape = element.getRepresentation();
-        System.out.println(elementShape);
+        System.out.println(Arrays.deepToString(elementShape));
 
         for (int i = 0; i < elementShape.length; i++) {
             for (int j = 0; j < elementShape[i].length; j++) {
                 if (elementShape[i][j] != null) {
                     map[y + i][x + j] = elementShape[i][j];
-                    System.out.println(elementShape);
+                    System.out.println(Arrays.deepToString(elementShape));
                 }
             }
         }
