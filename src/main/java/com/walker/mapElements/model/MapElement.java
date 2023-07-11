@@ -3,6 +3,8 @@ package com.walker.mapElements.model;
 
 import com.walker.configuration.model.PreferredLocationSymbol;
 
+import java.util.Arrays;
+
 public class MapElement extends Map {
     private String[][] representation;
     private String name;
@@ -41,6 +43,15 @@ public class MapElement extends Map {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("MapElement{");
+        sb.append("representation=").append(Arrays.deepToString(representation));
+        sb.append(", symbol='").append(symbol).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", dimension=").append(dimension);
+        sb.append(", preferredLocationSymbol=").append(preferredLocationSymbol);
+        sb.append('}');
+        return sb.toString();
     }
+
 }
