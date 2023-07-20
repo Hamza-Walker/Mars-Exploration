@@ -1,7 +1,6 @@
 package mapElements;
 
-import com.walker.calculators.model.Coordinate;
-import com.walker.configuration.model.ElementConfig;
+import com.walker.configuration.model.MapElementConfig;
 import com.walker.configuration.model.MapConfiguration;
 import com.walker.mapElements.model.Map;
 import com.walker.mapElements.model.MapElement;
@@ -27,11 +26,11 @@ public class testGenerate {
         MapElementPlacer mapElementPlacer = mock(MapElementPlacer.class);
 
         // Create a sample map configuration
-        List<ElementConfig> elementConfigs = new ArrayList<>();
+        List<MapElementConfig> mapElementConfigs = new ArrayList<>();
         // Add element configs to the list
 
         double elementToSpaceRatio = 0.5;
-        MapConfiguration mapConfig = new MapConfiguration(elementConfigs, elementToSpaceRatio);
+        MapConfiguration mapConfig = new MapConfiguration(mapElementConfigs, elementToSpaceRatio);
 
         // Create a sample list of map elements
         List<MapElement> mapElements = new ArrayList<>();

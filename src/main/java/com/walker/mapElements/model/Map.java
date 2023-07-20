@@ -1,7 +1,7 @@
 package com.walker.mapElements.model;
 
 public class Map {
-    private String[][] representation;
+    private final String[][] representation;
     private boolean successfullyGenerated;
 
     public Map(String[][] representation) {
@@ -29,7 +29,7 @@ public class Map {
 
         for (String[] row : arr) {
             for (String element : row) {
-                stringBuilder.append(element).append(" ");
+                stringBuilder.append(element);
             }
             stringBuilder.append(System.lineSeparator());
         }
@@ -42,7 +42,7 @@ public class Map {
         StringBuilder sb = new StringBuilder();
         for (String[] row : representation) {
             for (String element : row) {
-                sb.append(element).append(" ");
+                sb.append(element);
             }
             sb.append(System.lineSeparator());
         }

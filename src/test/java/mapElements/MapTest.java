@@ -15,9 +15,9 @@ public class MapTest {
         };
         Map map = new Map(representation);
 
-        String expected = "# # # #" + System.lineSeparator()
-                + "* * * *" + System.lineSeparator()
-                + "@ @ @ @" + System.lineSeparator();
+        String expected = "####" + System.lineSeparator()
+                + "****" + System.lineSeparator()
+                + "@@@@" + System.lineSeparator();
 
         String actual = map.toString();
 

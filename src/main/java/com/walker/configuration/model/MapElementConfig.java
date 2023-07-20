@@ -1,21 +1,21 @@
 package com.walker.configuration.model;
 
-import com.walker.configuration.model.PreferredLocationSymbol;
+import java.util.List;
 
-public class ElementConfig {
-    private char element;
-    private boolean isMultiDimensional;
-    private int dimensionGrowth;
-    private PreferredLocationSymbol preferredLocationSymbol;
-    private int mapSize;
+public class MapElementConfig {
+    private final char element;
+    private final boolean isMultiDimensional;
+    private final int dimensionGrowth;
+    private final PreferredLocationSymbol preferredLocationSymbol;
+    private final List<ElementToSize> sizes;
 
 
-    public ElementConfig(char element, boolean isMultiDimensional, int dimensionGrowth) {
+    public MapElementConfig(char element, boolean isMultiDimensional, List<ElementToSize> sizes, int dimensionGrowth, Integer mapSize) {
         this.element = element;
         this.isMultiDimensional = isMultiDimensional;
+        this.sizes = sizes;
         this.dimensionGrowth = dimensionGrowth;
         this.preferredLocationSymbol = determinePreferredLocationSymbol(element);
-        this.mapSize = mapSize;
     }
 
     public char getElement() {
@@ -30,15 +30,12 @@ public class ElementConfig {
         return dimensionGrowth;
     }
 
-    public PreferredLocationSymbol getPreferredLocationSymbol() {
-        return preferredLocationSymbol;
-    }
-    public int getMapSize() {
-        return mapSize;
+    public List<ElementToSize> getSizes() {
+        return sizes;
     }
 
-    public void setMapSize(int mapSize) {
-        this.mapSize = mapSize;
+    public PreferredLocationSymbol getPreferredLocationSymbol() {
+        return preferredLocationSymbol;
     }
 
     private PreferredLocationSymbol determinePreferredLocationSymbol(char element) {

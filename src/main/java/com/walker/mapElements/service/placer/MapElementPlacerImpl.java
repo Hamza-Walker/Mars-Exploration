@@ -5,20 +5,21 @@ import com.walker.mapElements.model.MapElement;
 
 import java.util.Arrays;
 
-public class MapElementPlacerImpl implements MapElementPlacer{
+public class MapElementPlacerImpl implements MapElementPlacer {
     @Override
-    public boolean canPlaceElement(MapElement element, String[][] map, Coordinate coordinate) {
-        // Check if the element can be placed at the given coordinate on the map
+    public boolean canPlaceElement(MapElement mapElement, String[][] map, Coordinate coordinate) {
         int x = coordinate.x();
         int y = coordinate.y();
+        String[][] elementShape = mapElement.getRepresentation();
 
-        String[][] elementShape = element.getRepresentation();
         for (int i = 0; i < elementShape.length; i++) {
             for (int j = 0; j < elementShape[i].length; j++) {
-                if (elementShape[i][j] != null && (y + 1 >= map.length
-                        || x + j >= map[0].length
-                        || map[y + i][x + j] != null))
-                return false;
+                if (elementShape[i][j] != null && (
+                        y + i >= map.length ||
+                                x + j >= map[0].length ||
+                                (map[y + i][x + j] != null && !map[y + i][x + j].equals(" ")))) {
+                    return false;
+                }
             }
         }
         return true;
@@ -26,19 +27,51 @@ public class MapElementPlacerImpl implements MapElementPlacer{
 
     @Override
     public void placeElement(MapElement element, String[][] map, Coordinate coordinate) {
-        // Place the element at the given coordinate on the map
         int x = coordinate.x();
         int y = coordinate.y();
         String[][] elementShape = element.getRepresentation();
-        System.out.println(Arrays.deepToString(elementShape));
 
         for (int i = 0; i < elementShape.length; i++) {
             for (int j = 0; j < elementShape[i].length; j++) {
                 if (elementShape[i][j] != null) {
                     map[y + i][x + j] = elementShape[i][j];
-                    System.out.println(Arrays.deepToString(elementShape));
+                }
+            }
+        }
+
+        String symbol = element.getSymbol();
+        if (symbol.equals("#")) {
+            spreadMountains(map, y, x, elementShape);
+        } else if (symbol.equals("%")) {
+            placeMineral(map, y, x);
+        } else if (symbol.equals("*")) {
+            placeWater(map, y, x);
+        }
+    }
+
+    private void spreadMountains(String[][] map, int startY, int startX, String[][] elementShape) {
+        int elementWidth = elementShape[0].length;
+        int elementHeight = elementShape.length;
+
+        for (int i = 0; i < elementHeight; i++) {
+            for (int j = 0; j < elementWidth; j++) {
+                if (map[startY + i][startX + j] == null) {
+                    map[startY + i][startX + j] = "#";
                 }
             }
         }
     }
+
+    private void placeMineral(String[][] map, int y, int x) {
+        if (x - 1 >= 0 && map[y][x - 1] == null) {
+            map[y][x - 1] = "%";
+        }
+    }
+
+    private void placeWater(String[][] map, int y, int x) {
+        if (y - 1 >= 0 && map[y - 1][x] == null) {
+            map[y - 1][x] = "*";
+        }
+    }
+
 }

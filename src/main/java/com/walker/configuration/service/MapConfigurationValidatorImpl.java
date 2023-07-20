@@ -1,6 +1,6 @@
 package com.walker.configuration.service;
 
-import com.walker.configuration.model.ElementConfig;
+import com.walker.configuration.model.MapElementConfig;
 import com.walker.configuration.model.MapConfiguration;
 
 import java.util.HashMap;
@@ -10,19 +10,19 @@ import java.util.Map;
 public class MapConfigurationValidatorImpl implements MapConfigurationValidator {
     @Override
     public boolean validate(MapConfiguration mapConfiguration) {
-        List<ElementConfig> elementConfigs = mapConfiguration.getElementConfigs();
+        List<MapElementConfig> mapElementConfigs = MapConfiguration.getElementConfigs();
         double elementToSpaceRatio = mapConfiguration.getElementToSpaceRatio();
         int totalElements = 0;
         boolean hasMinerals = false;
 
         Map<Character, Integer> elementCount = new HashMap<>();
 
-        for (ElementConfig elementConfig : elementConfigs) {
-            char element = elementConfig.getElement();
+        for (MapElementConfig mapElementConfig : mapElementConfigs) {
+            char element = mapElementConfig.getElement();
             elementCount.put(element, elementCount.getOrDefault(element, 0) + 1);
 
             if (element == '%') {
-                if (elementConfig.isMultiDimensional()) {
+                if (mapElementConfig.isMultiDimensional()) {
                     return false; // Violates the rule: minerals cannot be multidimensional
                 }
                 hasMinerals = true;

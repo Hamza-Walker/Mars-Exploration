@@ -1,8 +1,8 @@
 package com.walker;
 
-import com.walker.configuration.model.ElementConfig;
+import com.walker.configuration.model.MapElementConfig;
+import com.walker.configuration.model.ElementToSize;
 import com.walker.configuration.model.MapConfiguration;
-import com.walker.configuration.model.PreferredLocationSymbol;
 import com.walker.mapElements.model.Map;
 import com.walker.mapElements.service.builder.MapElementBuilder;
 import com.walker.mapElements.service.builder.MapElementBuilderImpl;
@@ -24,14 +24,24 @@ public class Application {
 
     public static void main(String[] args) {
         // Create a sample map configuration
-        List<ElementConfig> elementConfigs = new ArrayList<>();
-        elementConfigs.add(new ElementConfig('#', true, 3));  // Mountains
-        elementConfigs.add(new ElementConfig('&', true, 10)); // Pits
-        elementConfigs.add(new ElementConfig('%', false, 0)); // Minerals
-        elementConfigs.add(new ElementConfig('*', false, 0)); // Pockets of Water
+        // when I change the element count nothing happens.
+        // when I change the dimensional count nothing happens.
+        // when I change the size the map is calculated by multiplying the value by its self
+        List<MapElementConfig> mapElementConfigs = new ArrayList<>();
+        mapElementConfigs.add(new MapElementConfig('#', true,
+                List.of(new ElementToSize(20, 4)), 3, null));  // First Mountain
+        mapElementConfigs.add(new MapElementConfig('&', true,
+                List.of(new ElementToSize(10, 2)), 0, null)); // Pits
+        mapElementConfigs.add(new MapElementConfig('%', false,
+                List.of(new ElementToSize(0, 4)), 0, null)); // Minerals
+        mapElementConfigs.add(new MapElementConfig('*', false,
+                List.of(new ElementToSize(0, 5)), 0, null)); // Pockets of Water
+        mapElementConfigs.add(new MapElementConfig('#', true,
+                List.of(new ElementToSize(1, 5)), 4, null));  // Second Mountain
+
 
         double elementToSpaceRatio = 0.5;
-        MapConfiguration mapConfig = new MapConfiguration(elementConfigs, elementToSpaceRatio);
+        MapConfiguration mapConfig = new MapConfiguration(mapElementConfigs, elementToSpaceRatio);
 
         // Create the map element builder, map elements generator, and map element placer
         MapElementBuilder mapElementBuilder = new MapElementBuilderImpl();

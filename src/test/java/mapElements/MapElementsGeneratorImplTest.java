@@ -1,9 +1,11 @@
 package mapElements;
 
-import com.walker.configuration.model.ElementConfig;
+import com.walker.configuration.model.MapElementConfig;
+import com.walker.configuration.model.ElementToSize;
 import com.walker.configuration.model.MapConfiguration;
 import com.walker.mapElements.model.MapElement;
 import com.walker.mapElements.service.builder.MapElementBuilder;
+import com.walker.mapElements.service.generator.MapElementsGenerator;
 import com.walker.mapElements.service.generator.MapElementsGeneratorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,37 +18,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapElementsGeneratorImplTest {
+
     @Mock
     private MapElementBuilder mapElementBuilder;
 
-    private MapElementsGeneratorImpl mapElementsGenerator;
+    private MapElementsGenerator mapElementsGenerator;
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         mapElementsGenerator = new MapElementsGeneratorImpl(mapElementBuilder);
     }
 
     @Test
     public void testCreateAll() {
         // Prepare test data
-        ElementConfig elementConfig1 = new ElementConfig('*', false, 0);
-        ElementConfig elementConfig2 = new ElementConfig('#', true, 1);
-        List<ElementConfig> elementConfigs = new ArrayList<>();
-        elementConfigs.add(elementConfig1);
-        elementConfigs.add(elementConfig2);
+        List<ElementToSize> sizes1 = List.of(new ElementToSize(1, 0));
+        MapElementConfig mapElementConfig1 = new MapElementConfig('*', false, sizes1, 0, null);
 
-        MapConfiguration mapConfiguration = new MapConfiguration(elementConfigs, 20);
+        List<ElementToSize> sizes2 = List.of(new ElementToSize(2, 0), new ElementToSize(2, 0));
+        MapElementConfig mapElementConfig2 = new MapElementConfig('#', true, sizes2, 1, null);
+
+        List<MapElementConfig> mapElementConfigs = new ArrayList<>();
+        mapElementConfigs.add(mapElementConfig1);
+        mapElementConfigs.add(mapElementConfig2);
 
         // Mock the behavior of the MapElementBuilder
         MapElement mapElement1 = new MapElement(new String[][]{{"*"}}, "*", "Pit", 0, null);
         MapElement mapElement2 = new MapElement(new String[][]{{"#", "#"}, {"#", "#"}}, "#", "Mountain", 1, null);
-        Mockito.when(mapElementBuilder.build(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyInt(), Mockito.any()))
+        Mockito.when(mapElementBuilder.build(Mockito.anyList(), Mockito.anyString(), Mockito.anyString(), Mockito.anyInt(), Mockito.any()))
                 .thenReturn(mapElement1)
                 .thenReturn(mapElement2);
 
+        double elementToSpaceRatio = 0.5;
+        MapConfiguration mapConfig = new MapConfiguration(mapElementConfigs, elementToSpaceRatio);
+
         // Invoke the method under test
-        Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfiguration);
+        Iterable<MapElement> mapElements = mapElementsGenerator.createAll(mapConfig);
 
         // Assert the results
         List<MapElement> mapElementList = new ArrayList<>();
